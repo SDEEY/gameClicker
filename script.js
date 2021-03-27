@@ -1,9 +1,20 @@
 const main = document.querySelector('.mainBlock');
-// main = [];
 const counter = document.querySelector('.scoreSpan');
 const mainBlock = document.querySelector('.mainBlock');
-// const timesOfCreateCircle = document.querySelector('.howManyTimesCreateCircle');
+const blockLose = document.querySelector('.blockLose');
+const perfectHit = document.querySelector('.loseHitSpan');
+const totalScore = document.querySelector('.loseTotalScoreSpan');
+const body = document.querySelector('body');
+const backgroundButton = document.querySelector('.backgroundButton');
+const everythingButton = document.querySelector('.everythingButton');
+const topLine = document.querySelector('.topLine');
+const leftBlock50 = document.querySelector('.leftBlock50');
+const rightBlock50 = document.querySelector('.rightBlock50');
+const buttonRules = document.querySelector('.buttonRules');
+const rules = document.querySelector('.rules');
 
+
+let changeBottom = -39;
 
 let arrayTimesOfCreateCircle = [];
 
@@ -12,27 +23,32 @@ let maxSizeOfCircle = 39;
 let howManyTimesCreateCircle = 0;
 
 
+
 let counterVar = 0;
 let count = ()=>{
 	counterVar += 1;
 	counter.innerHTML = counterVar;
 };
 
+///////////  Procent tochnih popadaniy ///////////
+
+let arrayMainBlockClick = [];
+
+let mainBlockClick = 0;
+
+mainBlock.onclick = () => {
+	mainBlockClick += 1;
+	arrayMainBlockClick.push(mainBlockClick);
+};
+
+
 
 let intervalOfCreateCircle = 1000;
-// let timeOfCreaseCircle = intervalOfCreateCircle/32;
 
 let howManyTimesCreateCircle2 = ()=>{
 	howManyTimesCreateCircle += 1;
 	// timesOfCreateCircle.innerHTML = howManyTimesCreateCircle;
 	arrayTimesOfCreateCircle.push(howManyTimesCreateCircle);
-
-	
-	// if(arrayTimesOfCreateCircle.length <= 5){
-	// 	intervalOfCreateCircle = 2000;
-	// } else if (arrayTimesOfCreateCircle.length > 5) {
-	// 	intervalOfCreateCircle = 500;
-	// }
 };
 
 
@@ -59,36 +75,45 @@ function createCircle(){
 			clearInterval(increaseSizeOfCircle);
 			maxSizeOfCircle = 40;
 		}	
-			// console.log(maxSizeOfCircle);
 	}, intervalOfCreateCircle/50);
 		
 	main.append(circle);
 
-	if(main.children.length >= 10){
-		// alert('Loser');
-		clearInterval(runCode);
+	if(main.children.length >= 11){
+		perfectHit.innerHTML = (counterVar/mainBlockClick*100).toFixed() + '%';
+		totalScore.innerHTML = counterVar;
+		blockLose.style.display = 'block';
+		body.style.backgroundColor = 'rgb(0, 0, 0, 50%)';
+		clearTimeout(runCode);
 		mainBlock.style.pointerEvents = 'none';
-		setTimeout(() => {
-			window.location.reload();
-		}, 3000);
+		topLine.style.pointerEvents = 'none';
 	}
 
 	circle.onclick = () => {
 		circle.remove();
 		count();
+		if(counterVar == 50){
+		let changeBottom = setInterval(()=>{
+			changeBottom += 2;
+			leftBlock50.style.bottom = changeBottom + 'px';
+			leftBlock50.classList.remove('hide');
+			rightBlock50.style.bottom = changeBottom + 'px';
+			rightBlock50.classList.remove('hide');
+		}, 10);
+		let voiceTag = document.createElement('audio');
+			voiceTag.setAttribute('src', 'vocal/maman.mp3');
+			voiceTag.setAttribute('autoplay', true);
+		}
 	};
-
-	
-	// let howManyTimesCreateCircle2 = ()=>{
-	// 	howManyTimesCreateCircle += 1;
-	// 	// timesOfCreateCircle.innerHTML = howManyTimesCreateCircle;
-	// 	arrayTimesOfCreateCircle.push(howManyTimesCreateCircle);
-	// };
 
 	howManyTimesCreateCircle2();
 
-	
-	console.log(arrayTimesOfCreateCircle.length);
+	let circleColor = () => {
+		randomColorRGB();
+		circle.style.backgroundColor = colorRgb;
+	};
+
+	circleColor();
 }
 
 /////////////   BUTTONS   ////////////
@@ -128,7 +153,7 @@ const play = document.querySelector('.playButton').onclick = () => {
 			 intervalOfCreateCircle /= 1.1;
 		 }
 
-		 console.log(intervalOfCreateCircle);
+		//  console.log(intervalOfCreateCircle);
 		 runCode = setTimeout(runCodeSettimeout, intervalOfCreateCircle);
 
 	}, intervalOfCreateCircle);
@@ -137,80 +162,28 @@ const play = document.querySelector('.playButton').onclick = () => {
 
 
 const pause = document.querySelector('.pauseButton').onclick = () => {
-	clearInterval(runCode);
+	clearTimeout(runCode);
 	mainBlock.style.pointerEvents = 'none';
 	document.querySelector('.playButton').removeAttribute('disabled');
 };
 
 
-const reload = document.querySelector('.reload').onclick = ()=>{
+const reload = document.querySelector('.reload').onclick = () => {
 	window.location.reload();
+};
+
+
+const loseOkButton = document.querySelector('.loseOk').onclick = () => {
+	window.location.reload();
+	blockLose.style.display = 'none';
+};
+
+
+buttonRules.onclick = () => {
+	rules.classList.toggle('hide');
 };
 
 
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-// let settt = setInterval(() => {
-// 	function randomInteger(min, max) {
-// 	let random = min + Math.random() * (max + 1 - min);
-// 	return Math.floor(random);
-// 	}
-
-// 	let coordinates = {
-// 		x: randomInteger(0, 920) + 'px',
-// 		y: randomInteger(0, 470) + 'px',
-// 	};
-
-// 	function createCircle(createCircleTime){
-// 		const circle = document.createElement('div');
-// 		circle.className = 'circle';
-// 		circle.style.left = coordinates.x;
-// 		circle.style.top = coordinates.y;
-
-// 		let increaseSizeOfCircle = setInterval(() => {
-// 			maxSizeOfCircle += 1;
-// 			circle.style.width = maxSizeOfCircle + 'px';
-// 			circle.style.height = maxSizeOfCircle + 'px';
-
-
-// 			if(maxSizeOfCircle == 71){
-// 				clearInterval(increaseSizeOfCircle);
-// 				maxSizeOfCircle = 40;
-// 			}	
-// 			// console.log(maxSizeOfCircle);
-// 		}, createCircleTime/31);
-		
-// 		main.append(circle);
-
-		
-// 		circle.onclick = () => {
-// 			circle.remove();
-// 			count();
-// 		};
-// 	}
-	
-// 	// createCircle();
-	
-// }, createCircleTime);

@@ -4,7 +4,7 @@
 	<meta charset="UTF-8">
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>Document</title>
+	<title>Game</title>
 	<link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -24,10 +24,45 @@
 			</div>
 		</div>
 		<div class="mainBlock"></div>
+
+		<div class="blockLose hide">
+			<div class="loseText">
+				<p class="losePerfecttHit">Perfect hit: <span class="loseHitSpan"></span></p>
+				<p class="loseTotalScore">Total score: <span class="loseTotalScoreSpan"></span></p>
+			</div>
+			<div class="loseButton">
+				<button class="loseOk">ok</button>
+			</div>
+		</div>
+
+		<div class="backgroundButton">
+			<button class="buttonDesign">Random background color</button>
+		</div>
+
+		<div class="everythingButton">
+			<button class="buttonDesign">Random color of everything</button>
+		</div>
+
+		<div class="leftBlock50 hide">
+			<div class="innerLeftBlock50">
+				<p class="Block50text">50!<br>Go more!!!</p>
+			</div>
+		</div>
+
+		<div class="rightBlock50 hide">
+			<div class="innerRightBlock50">
+				<p class="Block50text">50!<br>Go more!!!</p>
+			</div>
+		</div>
+
+		<div class="rulesContainer">
+			<button class="buttonRules">Rule</button>
+			<p class="rules hide">Когда на поле появляется 11-ый круг - вы прогирали.</p>
+		</div>
 	</div>
 
-	
+	<!-- <audio src="vocal/maman.mp3" autoplay></audio> -->
 	<script src="script.js"></script>
-	<!-- <script src="proverka.js"></script> -->
+	<script src="randomColor.js"></script>
 </body>
 </html>
